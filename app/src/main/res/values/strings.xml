@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Magic\n Survival</string>
+    <string name="play">Play</string>
+    <string name="login_screen">Login Screen</string>
+    <string name="enter_email_adress">Enter Email Adress:</string>
+    <string name="email">email</string>
+    <string name="enter_password">Enter Password:</string>
+    <string name="returnn">Return</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="signup_screen">Sign Up</string>
+    <string name="confirm_password">Confirm Password:</string>
+    <string name="back_to_login">Back to Login</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="play_btn">Play</string>
+    <string name="store">Store</string>
+    <string name="_0">0</string>
+    <string name="map_image_description">Map image</string>
+    <string name="upload">upload</string>
+</resources>

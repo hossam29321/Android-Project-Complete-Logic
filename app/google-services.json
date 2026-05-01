@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "782917436992",
+    "project_id": "authenticationtry2-20e88",
+    "storage_bucket": "authenticationtry2-20e88.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782917436992:android:ac0e455c6181855a23c1a5",
+        "android_client_info": {
+          "package_name": "com.magicsurvivor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZUIMocxGUp-FJK_EDsb0rYARX51rp8DA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

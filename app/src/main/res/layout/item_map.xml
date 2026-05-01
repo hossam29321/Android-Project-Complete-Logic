@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="12dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/map_item_background">
+
+    <!-- Map Image -->
+    <ImageView
+        android:id="@+id/mapImage"
+        android:layout_width="290dp"
+        android:layout_height="240dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/map_image_description" />
+
+    <!-- Map Name -->
+    <TextView
+        android:id="@+id/mapName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Map Name"
+        android:fontFamily="@font/bangers"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold" />
+
+    <!-- Map Description -->
+    <TextView
+        android:id="@+id/mapDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:fontFamily="@font/bangers"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginTop="4dp" />
+
+</LinearLayout>

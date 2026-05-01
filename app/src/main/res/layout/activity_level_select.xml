@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundDark"
+    tools:context=".screens.LevelSelect">
+
+    <!-- Title "Choose Level" -->
+    <TextView
+        android:id="@+id/titleChooseLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Level"
+        android:fontFamily="@font/bangers"
+        android:textSize="48sp"
+        android:textColor="@color/white"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold" />
+
+    <!-- Horizontal Scrolling Maps -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mapRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:layout_below="@+id/titleChooseLevel"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/surfaceDark"
+        android:padding="15dp"/>
+
+    <!-- Play Button -->
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PLAY"
+        android:fontFamily="@font/bangers"
+        android:textSize="40sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/selectionGray"
+        android:hapticFeedbackEnabled="true" />
+    <Button
+        android:id="@+id/returnButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="return"
+        android:onClick="returnn"
+        android:fontFamily="@font/bangers"
+        android:textSize="20sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/selectionGray"
+        android:hapticFeedbackEnabled="true" />
+</RelativeLayout>
