@@ -452,7 +452,7 @@ public class GameEngine {
             mobRushTimer+=deltaTime;
 
             // WIN CONDITION: 15 minutes (900 seconds)
-            if (gameTimer >= 15 * 60f) {
+            if (gameTimer >= 60) {
                 triggerVictory();
                 return;
             }
@@ -516,7 +516,7 @@ public class GameEngine {
         }
     }
 
-    public void drawScreen(Canvas canvas) {
+    public void drawScreen(Canvas canvas,int currentFPS) {
         // Lazy initialize paints on first draw
         if (!paintsInitialized) {
             paints();
@@ -531,7 +531,7 @@ public class GameEngine {
         drawPlayerCentered(canvas);
         entityManager.drawSkills(canvas, offsetX, offsetY, screenCenterX, screenCenterY);
 
-        drawHUD(canvas);
+        drawHUD(canvas,currentFPS);
 
         if (damageFlashTimer > 0) {
             canvas.drawRect(0, 0, screenCenterX * 2, screenCenterY * 2, damageOverlayPaint);
@@ -634,7 +634,7 @@ public class GameEngine {
 
     }
 
-    private void drawHUD(Canvas canvas) {
+    private void drawHUD(Canvas canvas,int currentFPS) {
         float screenWidth = screenCenterX * 2;
         float barHeight = GameConstants.scale(GameConstants.UI_XP_BAR_HEIGHT);
         float margin = GameConstants.scale(GameConstants.UI_MARGIN);
@@ -728,6 +728,9 @@ public class GameEngine {
                 canvas.drawText(tag, debugX, diagY + GameConstants.scale(idx * 16f), debugTextPaint);
                 idx++;
             }
+            //Show Current actual FPS
+            float diagY2 = debugY + GameConstants.scale(160f);
+            canvas.drawText("FPS: " + currentFPS, debugX, diagY2 + GameConstants.scale(idx * 16f), debugTextPaint);
         }
 
         // NEW: Draw Pause Button (Top-Right Corner) - Only when RUNNING

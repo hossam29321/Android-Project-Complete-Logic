@@ -25,9 +25,6 @@
             android:name=".screens.SignUp"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".screens.MainActivity2"
-            android:exported="false" />
-        <activity
             android:name=".screens.LevelSelect"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"/>

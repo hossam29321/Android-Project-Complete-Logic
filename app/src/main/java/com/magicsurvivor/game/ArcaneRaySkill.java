@@ -46,7 +46,7 @@ public class ArcaneRaySkill extends Skill {
         List<GameObject> enemies = new ArrayList<>(entityManager.getEnemyList());
 
         // Sort closest first
-        Collections.sort(enemies, new Comparator<GameObject>() {
+        enemies.sort(new Comparator<GameObject>() {
             @Override
             public int compare(GameObject o1, GameObject o2) {
                 float d1 = getDistSq(o1);

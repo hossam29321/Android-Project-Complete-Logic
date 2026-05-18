@@ -23,6 +23,11 @@ public class GameThread extends Thread {
     private long lastFrameTime;
     private float deltaTime; // Time since last frame in SECONDS
 
+    //For Debug
+    private int frameCount = 0;
+    private long fpsLastResultTime = System.nanoTime();
+    private int currentFPS = 0;
+
     public GameThread(SurfaceHolder holder, GameEngine engine,Context context) {
         this.surfaceHolder = holder;
         this.gameEngine = engine;
@@ -55,6 +60,13 @@ public class GameThread extends Thread {
             long currentTime = System.nanoTime();
             deltaTime = (currentTime - lastFrameTime) / 1_000_000_000.0f;
             lastFrameTime = currentTime;
+            //counting frames per second
+            frameCount++;
+            if (currentTime - fpsLastResultTime >= 1_000_000_000L) { // 1 second has passed
+                currentFPS = frameCount;
+                frameCount = 0;
+                fpsLastResultTime = currentTime;
+            }
 
             // Cap delta time to prevent huge jumps (e.g., during pause/resume)
             if (deltaTime > 0.1f) {
@@ -72,7 +84,7 @@ public class GameThread extends Thread {
                     // 2. DRAW: Clear the screen and draw all entities
                     if (canvas != null) {
                         canvas.drawRGB(0, 0, 0);
-                        gameEngine.drawScreen(canvas);
+                        gameEngine.drawScreen(canvas,currentFPS);
                     }
                 }
             } finally {
@@ -97,5 +109,8 @@ public class GameThread extends Thread {
 
     public float getDeltaTime() {
         return deltaTime;
+    }
+    public int getCurrentFPS() {
+        return currentFPS;
     }
 }

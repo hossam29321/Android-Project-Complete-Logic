@@ -42,7 +42,6 @@ public class LevelSelect extends AppCompatActivity implements MapAdapter.OnMapSe
     private Button playButton;
     private String money;
     private int selectedMapIndex = -1;
-    private int selectedMapDrawable = -1;
     private List<MapItem> maps;
     private ActivityResultLauncher<PickVisualMediaRequest> pickMediaLauncher;
     private ActivityResultLauncher<Uri> takePictureLauncher;
@@ -131,20 +130,6 @@ public class LevelSelect extends AppCompatActivity implements MapAdapter.OnMapSe
         }
     }
 
-    private void updateMapWithBitmap(android.graphics.Bitmap bitmap) {
-        if (selectedMapIndex >= 0 && selectedMapIndex < maps.size() && bitmap != null) {
-            try {
-                // For camera photos, preserve full resolution with high quality (85%)
-                Uri bitmapUri = saveBitmapToUri(bitmap, 100);
-                MapItem uploadMap = maps.get(selectedMapIndex);
-                uploadMap.setImageUri(bitmapUri);
-                mapAdapter.notifyItemChanged(selectedMapIndex);
-            } catch (Exception e) {
-                Log.e("BitmapSave", "Error saving bitmap", e);
-                Toast.makeText(this, "Error saving photo", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     private Uri compressImage(Uri imageUri) {
         try {
@@ -248,7 +233,7 @@ public class LevelSelect extends AppCompatActivity implements MapAdapter.OnMapSe
     @Override
     public void onMapSelected(int position) {
         selectedMapIndex = position;
-        selectedMapDrawable = maps.get(position).getImageResId();
+        int selectedMapDrawable = maps.get(position).getImageResId();
 
         if(selectedMapIndex != maps.size() - 1) return;
         
