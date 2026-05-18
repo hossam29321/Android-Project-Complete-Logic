@@ -16,7 +16,7 @@ public class GameThread extends Thread {
     private final GameEngine gameEngine;
     private boolean isRunning;
 
-    private static final double TARGET_FPS = 60.0;
+    private static final double TARGET_FPS = 120.0;
     private static final double FRAME_INTERVAL_MS = 1000.0 / TARGET_FPS;
 
     // Delta time tracking

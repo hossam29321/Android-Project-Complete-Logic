@@ -25,6 +25,7 @@ public class CollisionHandler {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private final FirebaseAuth refAuth= FirebaseAuth.getInstance();
+    private SpatialGrid enemyGrid = new SpatialGrid();
 
     public CollisionHandler(EntityManager entityManager, Player player, GameEngine engine) {
         this.entRef = entityManager;
@@ -67,6 +68,11 @@ public class CollisionHandler {
     }
 
     public void checkAllHits() {
+        enemyGrid.clear();
+        for (GameObject enemy : entRef.getEnemyList()) {
+            enemyGrid.add(enemy);
+        }
+
         skillHitsEnemy();
         enemyHitsPlayer();
         playerCollectsGem();
@@ -96,7 +102,6 @@ public class CollisionHandler {
 
     private void skillHitsEnemy() {
         List<GameObject> skills = entRef.getSkillList();
-        List<GameObject> enemies = entRef.getEnemyList();
 
         for (int i = 0; i < skills.size(); i++) {
             GameObject skillObj = skills.get(i);
@@ -107,7 +112,9 @@ public class CollisionHandler {
                 if (projectile.isFinished()) continue;
 
                 RectF skillBox = getHitBox(projectile);
-                for (GameObject enemyObj : enemies) {
+                List<GameObject> nearbyEnemies = enemyGrid.getNearby(projectile.getPositionX(), projectile.getPositionY());
+
+                for (GameObject enemyObj : nearbyEnemies) {
                     Enemy enemy = (Enemy) enemyObj;
                     if (!enemy.isDestroyed() && skillBox.intersect(enemy.getHitBox())) {
                         projectile.explode(entRef);
@@ -122,7 +129,9 @@ public class CollisionHandler {
 
                 if (!ray.isDamageActive()) continue;
 
-                for (GameObject enemyObj : enemies) {
+                List<GameObject> nearbyEnemies = enemyGrid.getNearby(ray.getPositionX(), ray.getPositionY());
+
+                for (GameObject enemyObj : nearbyEnemies) {
                     Enemy enemy = (Enemy) enemyObj;
 
                     if (!enemy.isDestroyed() && ray.checkCollision(enemy)) {
@@ -136,7 +145,9 @@ public class CollisionHandler {
                 ElectricField field = (ElectricField) skillObj;
                 if (field.isFinished()) continue;
 
-                for (GameObject enemyObj : enemies) {
+                List<GameObject> nearbyEnemies = enemyGrid.getNearby(field.getPositionX(), field.getPositionY());
+
+                for (GameObject enemyObj : nearbyEnemies) {
                     Enemy enemy = (Enemy) enemyObj;
 
                     if (!enemy.isDestroyed() && field.checkCollision(enemy)) {

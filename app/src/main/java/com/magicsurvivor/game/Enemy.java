@@ -115,6 +115,18 @@ public class Enemy extends GameObject {
     @Override
     public void drawOnScreen(Canvas canvas) { }
 
+    private static final Paint STUN_TINT_PAINT;
+    static {  // This runs ONE time
+        STUN_TINT_PAINT = new Paint();
+        STUN_TINT_PAINT.setFilterBitmap(true);
+        STUN_TINT_PAINT.setAntiAlias(true);
+        STUN_TINT_PAINT.setColorFilter(
+                new PorterDuffColorFilter(
+                        Color.argb(100, 50, 110, 200),
+                        PorterDuff.Mode.SRC_ATOP
+                )
+        );
+    }
     @Override
     public void drawOnScreen(Canvas canvas, float cameraX, float cameraY, float centerX, float centerY) {
         float drawX = positionX - cameraX + centerX;
@@ -128,11 +140,7 @@ public class Enemy extends GameObject {
             Bitmap sprite = sprites[currentFrame];
             if (sprite != null) {
                 if (stunnedTimer > 0f) {
-                    Paint tint = new Paint();
-                    tint.setFilterBitmap(true);
-                    tint.setAntiAlias(true);
-                    tint.setColorFilter(new PorterDuffColorFilter(Color.argb(100, 50, 110, 200), PorterDuff.Mode.SRC_ATOP));
-                    canvas.drawBitmap(sprite, left, top, tint);
+                    canvas.drawBitmap(sprite, left, top, STUN_TINT_PAINT);
                 } else {
                     canvas.drawBitmap(sprite, left, top, null);
                 }
