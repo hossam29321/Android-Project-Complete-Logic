@@ -8,7 +8,7 @@ public enum Direction {
     DOWN,
     LEFT,
     RIGHT,
-    UP_LEFT,     // ⬅️ NEW DIAGONALS
+    UP_LEFT,     // ️ NEW DIAGONALS
     UP_RIGHT,
     DOWN_LEFT,
     DOWN_RIGHT,

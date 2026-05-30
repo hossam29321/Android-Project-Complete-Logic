@@ -452,7 +452,7 @@ public class GameEngine {
             mobRushTimer+=deltaTime;
 
             // WIN CONDITION: 15 minutes (900 seconds)
-            if (gameTimer >= 60) {
+            if (gameTimer >= 60*15) {
                 triggerVictory();
                 return;
             }

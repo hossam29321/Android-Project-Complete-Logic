@@ -30,27 +30,21 @@ public class GameConstants {
     public static final float PLAYER_HEALTHBAR_HEIGHT = 15f;
     public static final float PLAYER_HEALTHBAR_OFFSET = 10f;
     public static final float PLAYER_HEALTHBAR_BORDER = 2f;
-    public static final float PLAYER_XP_MULTIPLIER = 1.5f;
+    public static final float PLAYER_XP_MULTIPLIER = 1.2f;
+    public static final float PLAYER_INITIAL_LEVEL_REQUIREMENT = 200f;
 
     // ============================================================
     // ENEMY CONSTANTS (in reference units)
     // ============================================================
-    // === NEW: Dynamic Spawn System ===
     // Spawn timing: base interval (seconds between spawns), minimum interval at max difficulty,
     // and the ramp time (seconds) over which difficulty approaches its maximum.
     public static final float ENEMY_SPAWN_BASE_INTERVAL = 2.0f;  // Start with one enemy every 2 seconds
     public static final float ENEMY_SPAWN_MIN_INTERVAL = 0.01f;   // Hard cap: one enemy every 0.5 seconds
-    public static final float ENEMY_SPAWN_RAMP_TIME = 30f;      // Reach near-max difficulty after 10 minutes
+    public static final float ENEMY_SPAWN_RAMP_TIME = 15*60-30f;      // Reach near-max difficulty after 10 minutes
 
     //MOB RUSH STUFF
-    public static final float MOB_RUSH_START = 60;
-//    public static final float MOB_RUSH_START = 5*60f;
+    public static final float MOB_RUSH_START = 5*60f;
     public static final float MOB_RUSH_END = MOB_RUSH_START+20.0f;
-
-
-//    public static final float TANK_SPAWN_BASE_INTERVAL = 2.0f;  // Start with 1 enemy every 2 seconds
-//    public static final float TANK_SPAWN_MIN_INTERVAL = 1f;   // Max difficulty: 5 enemies per second
-//    public static final float TANK_SPAWN_RAMP_TIME = 10f;      // Reach max difficulty after 5 minutes (300 seconds)
 
     public static float spawnInterval = ENEMY_SPAWN_BASE_INTERVAL; // Will be updated dynamically in gameEngine
 
@@ -66,7 +60,7 @@ public class GameConstants {
     public static final float ENEMY_HITBOX_SCALE_WIDTH = 0.7f;
     public static final float ENEMY_HITBOX_SCALE_HEIGHT = 0.7f;
 
-    public static final float TANK_XP_VALUE = 5.0f;
+    public static final float TANK_XP_VALUE = 5f;
     public static final float TANK_SPEED = 60f;
     public static final float TANK_HEALTH = 5000f;
     public static final float TANK_SIZE = 500f;
@@ -103,7 +97,7 @@ public class GameConstants {
     public static final float GEM_SIZE = 15f;
     public static final float GEM_PICKUP_RADIUS = 50f;
     public static final float GEM_SPAWN_INTERVAL = 3.0f;
-    public static final int GEM_XP_VALUE = 500;
+    public static final int GEM_XP_VALUE = 5;
 
     public static final float HEALTH_ORB_SIZE = 40f;
     public static final float HEALTH_ORB_SPAWN_INTERVAL = 15.0f;
@@ -172,8 +166,6 @@ public class GameConstants {
     // ============================================================
     // TARGET FRAME RATE
     // ============================================================
-    public static final double TARGET_FPS = 60.0;
-    public static final double TARGET_DELTA_TIME = 1.0 / TARGET_FPS;
 
     /**
      * Initialize the scaling system based on actual screen dimensions.
@@ -222,7 +214,7 @@ public class GameConstants {
      * Returns the current spawn interval in seconds.
      */
     public static float calculateSpawnInterval(float gameTimeSeconds) {
-        
+
         if (gameTimeSeconds <= 0f) return ENEMY_SPAWN_BASE_INTERVAL;
         float t = Math.min(1.0f, gameTimeSeconds / ENEMY_SPAWN_RAMP_TIME);
         // Exponential smoothing: start at base and decay toward min.

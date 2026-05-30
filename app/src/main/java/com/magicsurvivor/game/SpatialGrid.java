@@ -10,10 +10,6 @@ import java.util.Map;
  *
  * Instead of checking if fireball hits ALL 50 enemies (expensive),
  * we only check enemies in nearby squares (fast).
- *
- * Think of it like dividing a city into neighborhoods:
- * - To find people in Central Park, don't check every person in the whole city
- * - Just check people in Central Park + nearby neighborhoods
  */
 public class SpatialGrid {
 
