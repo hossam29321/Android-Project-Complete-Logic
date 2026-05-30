@@ -2,6 +2,7 @@ package com.magicsurvivor.game;
 
 import android.graphics.Canvas;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class EntityManager {
@@ -13,6 +14,8 @@ public class EntityManager {
     private Player player;
     private GameEngine gameEngine;
     private final List<GameObject> healthOrbList;
+    private List<GameObject> sortedEnemyCache;
+    private boolean sortCacheValid = false;
 
     public EntityManager() {
         this.enemyList = new ArrayList<>();
@@ -20,6 +23,7 @@ public class EntityManager {
         this.gemList = new ArrayList<>();
         this.coinList=new ArrayList<>();
         this.healthOrbList = new ArrayList<>();
+        this.sortedEnemyCache = new ArrayList<>();
     }
 
     public void setGameEngine(GameEngine gameEngine) {
@@ -121,6 +125,7 @@ public class EntityManager {
 
     public void cleanUp() {
         enemyList.removeIf(gameObject -> ((Enemy) gameObject).isDestroyed());
+        sortCacheValid = false;
         skillList.removeIf(gameObject -> {
             if (gameObject instanceof FireballProjectile) return ((FireballProjectile) gameObject).isFinished();
             if (gameObject instanceof Explosion) return ((Explosion) gameObject).isFinished();
@@ -138,4 +143,27 @@ public class EntityManager {
     public void addHealthOrb(GameObject orb) { healthOrbList.add(orb); }
     public void removeHealthOrb(GameObject orb) { healthOrbList.remove(orb); }
     public List<GameObject> getHealthOrbList() { return healthOrbList; }
+
+    public List<GameObject> getSortedEnemies(Player player) {
+        if (!sortCacheValid) {
+            sortedEnemyCache.clear();
+            sortedEnemyCache.addAll(enemyList);
+            
+            Comparator<GameObject> distanceComparator = (o1, o2) -> {
+                float d1 = getDistanceSq(o1, player);
+                float d2 = getDistanceSq(o2, player);
+                return Float.compare(d1, d2);
+            };
+            
+            sortedEnemyCache.sort(distanceComparator);
+            sortCacheValid = true;
+        }
+        return sortedEnemyCache;
+    }
+
+    private float getDistanceSq(GameObject enemy, Player player) {
+        float dx = enemy.getPositionX() - player.getPositionX();
+        float dy = enemy.getPositionY() - player.getPositionY();
+        return dx * dx + dy * dy;
+    }
 }

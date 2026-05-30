@@ -2,9 +2,6 @@ package com.magicsurvivor.game;
 
 import android.graphics.Bitmap;
 import android.graphics.PointF;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ArcaneRaySkill extends Skill {
@@ -43,21 +40,11 @@ public class ArcaneRaySkill extends Skill {
             rayCount += upgradePath[level - 1].rayCountBonus;
         }
         
-        List<GameObject> enemies = new ArrayList<>(entityManager.getEnemyList());
-
-        // Sort closest first
-        enemies.sort(new Comparator<GameObject>() {
-            @Override
-            public int compare(GameObject o1, GameObject o2) {
-                float d1 = getDistSq(o1);
-                float d2 = getDistSq(o2);
-                return Float.compare(d1, d2);
-            }
-        });
+        List<GameObject> enemies = entityManager.getSortedEnemies(playerRef);
 
         int targetsFound = 0;
 
-        // Fire at closest enemies
+        // Fire at closest enemies (already sorted by distance)
         for (int i = 0; i < enemies.size() && targetsFound < rayCount; i++) {
             GameObject target = enemies.get(i);
             fireRay(entityManager, target.getPositionX(), target.getPositionY());
@@ -84,11 +71,5 @@ public class ArcaneRaySkill extends Skill {
                 playerRef, tx, ty, finalDamage, raySprites
         );
         entityManager.addSkill(ray);
-    }
-
-    private float getDistSq(GameObject o) {
-        float dx = o.getPositionX() - playerRef.getPositionX();
-        float dy = o.getPositionY() - playerRef.getPositionY();
-        return dx*dx + dy*dy;
     }
 }

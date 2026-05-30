@@ -461,6 +461,10 @@ public class GameEngine {
             GameConstants.spawnInterval = GameConstants.calculateSpawnInterval(gameTimer);
 
             player.move(joystick.getMovementVectorX(), joystick.getMovementVectorY());
+            
+            // Sort enemies once per frame for targeting skills
+            entityManager.getSortedEnemies(player);
+            
             player.updateLogic(entityManager, deltaTime);
             entityManager.updateAll(player, deltaTime);
             collisionHandler.checkAllHits();
